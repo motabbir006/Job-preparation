@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int numIslands(vector<vector<char>>& grid) {
+        int count=0;
+
+        for(int i=0; i<grid.size(); i++){         // for row 
+            for(int j=0; j<grid[0].size();j++){ // for column
+                if(grid[i][j]=='1'){   // We know 1 represent island 
+                    fnc(grid,i,j);  //call the function
+                    count++;
+                }
+            }
+        }
+
+        return count;
+    }
+
+    void fnc(vector<vector<char>>& grid, int i, int j){
+        if(i<0|| j<0|| i>=grid.size()|| j>=grid[0].size())  // check the grid out of bounds 
+        return;
+        if(grid[i][j]=='0')  // 0 means water 
+        return;
+
+        grid[i][j]='0';   The purpose of this line is to mark the current land cell ('1') as visited by changing it to water ('0')
+
+        fnc(grid,i+1,j);  // CHECK HORIZONTAL RIGHT SIDE
+        fnc(grid,i-1,j); // CHECK HORIZONTAL LEFT SIDE
+        fnc(grid,i,j+1);  // CHECK VARTICAL TOP/ BOTTOM SIDE
+        fnc(grid,i,j-1); 
+    }
+};
